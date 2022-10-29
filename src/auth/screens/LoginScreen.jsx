@@ -1,6 +1,9 @@
+import { Typography } from "@mui/material"
 
 export const LoginScreen = () => {
   return (
-    <div>LoginScreen</div>
+    <>
+      <Typography variant='h1'>Login</Typography>
+    </>
   )
 }
