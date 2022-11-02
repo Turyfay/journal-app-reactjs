@@ -5,6 +5,7 @@ import { LayoutAuth } from '../layout/LayoutAuth';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
+import { useMemo } from "react";
 
 export const LoginScreen = () => {
 
@@ -15,6 +16,7 @@ export const LoginScreen = () => {
 
   const dispatch = useDispatch();
   const { status } = useSelector(store => store.auth);
+  const isAuthenticated = useMemo(()=> status === 'checking',[status]);
 
   const onSubmitLogin = (event) => {
     event.preventDefault();
@@ -22,7 +24,6 @@ export const LoginScreen = () => {
   }
 
   const onGoogleSignIn = () => {
-    console.log('on google sign in ');
     dispatch(startGoogleSignIn());
   }
 
@@ -56,10 +57,10 @@ export const LoginScreen = () => {
           </Grid>
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
             <Grid item xs={12} sm={6}>
-              <Button type='submit' variant="contained" fullWidth>Login</Button>
+              <Button type='submit' variant="contained" fullWidth  disabled={isAuthenticated} >Login</Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button type='button' onClick={onGoogleSignIn} variant="contained" fullWidth>
+              <Button type='button' onClick={onGoogleSignIn} variant="contained" fullWidth disabled={isAuthenticated}>
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>

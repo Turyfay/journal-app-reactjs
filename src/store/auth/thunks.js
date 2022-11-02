@@ -1,5 +1,5 @@
 import { singInwithGoogle } from "../../firebase/providers";
-import { checkAuth } from "./authSlice";
+import { checkAuth, login, logout } from "./authSlice";
 
 export const checkAuthenticated = (email, password) => {
   return async (dispatch) => {
@@ -12,5 +12,9 @@ export const startGoogleSignIn = () => {
         dispatch(checkAuth());
 
         const result = await singInwithGoogle();
+        /* console.log({result}); */
+        if(!result.ok) return dispatch(logout(result.errorMessage));
+
+        dispatch(login(result));
     }
 };
