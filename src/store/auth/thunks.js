@@ -38,7 +38,7 @@ export const startCreatingUserWithEmailPassword = ({
 
     console.log(result);
 
-    if (!result.ok) return dispatch(logout(result.errorMessage));
+    if (!result.ok) return dispatch(logout({errorMessage: result.errorMessage}));
 
     dispatch(login(result));
   };
