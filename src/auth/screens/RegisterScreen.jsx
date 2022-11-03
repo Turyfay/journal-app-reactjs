@@ -1,7 +1,9 @@
 import { Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
+import { startCreatingUserWithEmailPassword } from "../../store/auth/thunks";
 import { LayoutAuth } from "../layout/LayoutAuth"
 
 
@@ -16,7 +18,7 @@ const formValidations = {
 export const RegisterScreen = () => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+  const dispatch =  useDispatch();  
 
   const {
     nombres,
@@ -44,7 +46,10 @@ export const RegisterScreen = () => {
   const onSubmitRegister = (event) => {
     event.preventDefault();
     setFormSubmitted(true);
-    console.log(formState);
+
+    if(!isFormValid) return;
+
+    dispatch(startCreatingUserWithEmailPassword(formState))
   }
 
   return (
