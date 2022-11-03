@@ -3,15 +3,39 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import { LayoutAuth } from "../layout/LayoutAuth"
 
+
+const formValidations = {
+   email: [(value)=> value.includes('@'),'El correo en invalido'],
+   password: [(value)=>value.length < 6, 'La contraseña no es valida debe tenes mas de 6 caracteres'],
+   nombres: [(value)=>value.length > 1, 'Los nombres no son validos'],
+   apellidos: [(value)=>value.length > 1, 'Los apellidos no son validos']
+}
+
+
 export const RegisterScreen = () => {
 
-  const { nombres, apellidos, email, password, passwordRepeat, onInputChange, onResetForm, formState } = useForm({
+  const {
+    nombres, 
+    apellidos, 
+    email, 
+    password, 
+    passwordRepeat, 
+    onInputChange, 
+    onResetForm, 
+    formState,
+    isFormValid,
+    nombresValid,
+    apellidosValid,
+    emailValid,
+    passwordValid,
+    equalPassword
+  } = useForm({
     nombres: '',
     apellidos: '',
     email: '',
     password: '',
     passwordRepeat: ''
-  });
+  }, formValidations);
 
   const onSubmitRegister = (event) => {
     event.preventDefault();
