@@ -1,5 +1,5 @@
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { checkAuthenticated, startGoogleSignIn} from '../../store/auth';
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
 import { Google } from "@mui/icons-material";
 import { LayoutAuth } from '../layout/LayoutAuth';
 import { Link as RouterLink } from 'react-router-dom';
@@ -15,12 +15,12 @@ export const LoginScreen = () => {
   });
 
   const dispatch = useDispatch();
-  const { status } = useSelector(store => store.auth);
-  const isAuthenticated = useMemo(()=> status === 'checking',[status]);
+  const { status, errorMessage } = useSelector(store => store.auth);
+  const isAuthenticated = useMemo(() => status === 'checking', [status]);
 
   const onSubmitLogin = (event) => {
     event.preventDefault();
-    dispatch(checkAuthenticated(email, password));
+    dispatch(startLoginWithEmailPassword(email, password));
   }
 
   const onGoogleSignIn = () => {
@@ -56,8 +56,13 @@ export const LoginScreen = () => {
             />
           </Grid>
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
+            <Grid item xs={12}
+              display={!!errorMessage ? '' : 'none'}
+            >
+              <Alert severity="error" >{errorMessage}</Alert>
+            </Grid>
             <Grid item xs={12} sm={6}>
-              <Button type='submit' variant="contained" fullWidth  disabled={isAuthenticated} >Login</Button>
+              <Button type='submit' variant="contained" fullWidth disabled={isAuthenticated} >Login</Button>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button type='button' onClick={onGoogleSignIn} variant="contained" fullWidth disabled={isAuthenticated}>
@@ -66,6 +71,8 @@ export const LoginScreen = () => {
               </Button>
             </Grid>
           </Grid>
+
+
 
           <Grid container direction='row' justifyContent='end'>
             <Link component={RouterLink} color='inherit' to='/auth/register'>
