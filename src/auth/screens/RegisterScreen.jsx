@@ -1,27 +1,31 @@
 import { Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { useState } from "react";
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import { LayoutAuth } from "../layout/LayoutAuth"
 
 
 const formValidations = {
-   email: [(value)=> value.includes('@'),'El correo en invalido'],
-   password: [(value)=>value.length < 6, 'La contraseña no es valida debe tenes mas de 6 caracteres'],
-   nombres: [(value)=>value.length > 1, 'Los nombres no son validos'],
-   apellidos: [(value)=>value.length > 1, 'Los apellidos no son validos']
+  email: [(value) => value.includes('@'), 'El correo es invalido'],
+  password: [(value) => value.length >= 6, 'La contraseña no es valida debe tenes mas de 6 caracteres'],
+  nombres: [(value) => value.length >= 1, 'Los nombres no son validos'],
+  apellidos: [(value) => value.length >= 1, 'Los apellidos no son validos']
 }
 
 
 export const RegisterScreen = () => {
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+
   const {
-    nombres, 
-    apellidos, 
-    email, 
-    password, 
-    passwordRepeat, 
-    onInputChange, 
-    onResetForm, 
+    nombres,
+    apellidos,
+    email,
+    password,
+    passwordRepeat,
+    onInputChange,
+    onResetForm,
     formState,
     isFormValid,
     nombresValid,
@@ -39,11 +43,13 @@ export const RegisterScreen = () => {
 
   const onSubmitRegister = (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
     console.log(formState);
   }
 
   return (
     <LayoutAuth title='Registro de Usuario'>
+
       <form onSubmit={onSubmitRegister}>
 
         <Grid container>
@@ -56,6 +62,8 @@ export const RegisterScreen = () => {
               name="nombres"
               value={nombres}
               onChange={onInputChange}
+              error={!!nombresValid && formSubmitted}
+              helperText={nombresValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 3 }}>
@@ -67,6 +75,8 @@ export const RegisterScreen = () => {
               name='apellidos'
               value={apellidos}
               onChange={onInputChange}
+              error={!!apellidosValid && formSubmitted}
+              helperText={apellidosValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 3 }}>
@@ -79,6 +89,8 @@ export const RegisterScreen = () => {
               name="email"
               value={email}
               onChange={onInputChange}
+              error={!!emailValid && formSubmitted}
+              helperText={emailValid}
             />
           </Grid>
 
@@ -93,6 +105,8 @@ export const RegisterScreen = () => {
               name="password"
               value={password}
               onChange={onInputChange}
+              error={!!passwordValid && formSubmitted}
+              helperText={passwordValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 3 }}>
@@ -111,7 +125,7 @@ export const RegisterScreen = () => {
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }} >
 
             <Grid item xs={12} >
-              <Button type="submit" variant="contained" fullWidth>
+              <Button disabled={!isFormValid} type="submit" variant="contained" fullWidth>
                 Crear cuenta
               </Button>
             </Grid>
