@@ -4,6 +4,7 @@ import { Grid, Typography } from '@mui/material'
 export const LayoutAuth = ({ children, title }) => {
     return (
         <Grid
+            className='animate__animated animete__fadeInDownBig'
             container
             spacing={0}
             direction='column'

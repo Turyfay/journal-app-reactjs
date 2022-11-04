@@ -51,13 +51,13 @@ export const RegisterScreen = () => {
 
     if (!isFormValid) return;
 
-    dispatch(startCreatingUserWithEmailPassword(formState))
+    dispatch(startCreatingUserWithEmailPassword({ email, password, displayName: nombres + ' ' + apellidos }))
   }
 
   return (
     <LayoutAuth title='Registro de Usuario'>
 
-      <form onSubmit={onSubmitRegister}>
+      <form onSubmit={onSubmitRegister} className='animate__animated animete__fadeIn'>
 
         <Grid container>
           <Grid item xs={12} sx={{ mt: 3 }}>

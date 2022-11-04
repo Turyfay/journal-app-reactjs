@@ -29,9 +29,9 @@ export const LoginScreen = () => {
 
   return (
     <LayoutAuth title='Login'>
-      <form onSubmit={onSubmitLogin} >
+      <form onSubmit={onSubmitLogin} className='animate__animated animete__fadeIn'>
 
-        <Grid container>
+        <Grid container >
           <Grid item xs={12} sx={{ mt: 3 }}>
             <TextField
               label='Correo'
