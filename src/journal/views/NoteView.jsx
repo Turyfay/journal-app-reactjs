@@ -2,7 +2,7 @@ import { SaveOutlined } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { ImageGallery } from "../components";
 
-export const NoteView = () => {
+export const NoteView = ({title,body,date,id}) => {
     return (
         <Grid container
             direction='row'
@@ -11,7 +11,7 @@ export const NoteView = () => {
             sx={{ mb: 1 }}
         >
             <Grid item>
-                <Typography fontSize={39} fontWeight='ligth'>28 de agosto de 2022</Typography>
+                <Typography fontSize={39} fontWeight='ligth'>{date}</Typography>
             </Grid>
             <Grid item>
                 <Button
@@ -29,6 +29,7 @@ export const NoteView = () => {
                 placeholder="Ingrese un título"
                 label='Título'
                 sx={{border: 'none',mb: 1}}
+                value={title}
                 />
             </Grid>
             <Grid container>
@@ -38,6 +39,7 @@ export const NoteView = () => {
                 multiline   
                 placeholder="¿Qué sucedió en el día de hoy?"
                 minRows={5}
+                value={body}
                 />
             </Grid>
             {/* Gareleria de imagenes */}
