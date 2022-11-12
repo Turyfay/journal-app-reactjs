@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
 import { useMemo } from "react";
 
+
+const formData = {
+  email: '',
+  password: ''
+}
+
 export const LoginScreen = () => {
 
-  const { email, password, onInputChange, onResetForm, formState } = useForm({
-    email: '',
-    password: ''
-  });
+  const { email, password, onInputChange, onResetForm, formState } = useForm(formData);
 
   const dispatch = useDispatch();
   const { status, errorMessage } = useSelector(store => store.auth);

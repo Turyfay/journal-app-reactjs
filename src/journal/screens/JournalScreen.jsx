@@ -22,7 +22,7 @@ export const JournalScreen = () => {
       {
         active === null 
         ? (<NothingSelectedView />)
-        : (<NoteView {...active}/>)
+        : (<NoteView />)
       }
  
       
